@@ -8,15 +8,15 @@ import { useEffect } from 'react';
 import { Contacts, Container } from './App.styled';
 import { getContacts } from 'redux/selectors';
 import { fetchContacts } from 'redux/operations';
-import { getError,getIsLoading } from 'redux/selectors';
+// import { getError,getIsLoading } from 'redux/selectors';
 
 export const App = () => {
   const contacts = useSelector(getContacts);
   console.log(contacts)
 
   const dispatch = useDispatch();
-  const isLoading = useSelector(getIsLoading);
-  const error = useSelector(getError);
+  // const isLoading = useSelector(getIsLoading);
+  // const error = useSelector(getError);
 
   useEffect(() => {
     dispatch(fetchContacts())
@@ -27,10 +27,10 @@ export const App = () => {
       <Section title="Phonebook">
         <FormContacts />
       </Section>
-      {isLoading && !error && <b>Request in progress...</b>}
+      
       <Contacts>Contacts</Contacts>
       <Filter />
-      {contacts.length ? <ContactList /> : <h2>No such contact found</h2>}
+      {contacts? <ContactList /> : <h2>No such contact found</h2>}
     </Container>
   );
 };
