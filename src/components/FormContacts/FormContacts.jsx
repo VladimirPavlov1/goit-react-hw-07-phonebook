@@ -8,8 +8,7 @@ import {
 
 import { Formik, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
-import { useDispatch } from 'react-redux';
-import { addContacts } from 'redux/contactsSlice/contactsSlice';
+
 
 
 
@@ -47,7 +46,7 @@ export const FormContacts = () => {
  
 
   const handleSubmit = (onSubmit, { resetForm }) => {
-   const {name,number} = onSubmit;
+   
 
    
 

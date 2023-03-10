@@ -1,5 +1,5 @@
-import PropTypes from 'prop-types';
-import { BtnDelete, Title, WrapperContact } from './Contact.styled';
+
+import {  WrapperContact } from './Contact.styled';
 
 
 export const Contact = ({ name, id, phone }) => {
@@ -17,8 +17,8 @@ export const Contact = ({ name, id, phone }) => {
   );
 };
 
-Contact.propTypes = {
-  name: PropTypes.string.isRequired,
-  phone: PropTypes.string.isRequired,
-  id: PropTypes.string.isRequired,
-};
+// Contact.propTypes = {
+//   name: PropTypes.string.isRequired,
+//   phone: PropTypes.string.isRequired,
+//   id: PropTypes.string.isRequired,
+// };

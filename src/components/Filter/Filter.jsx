@@ -7,7 +7,7 @@ export const Filter = () => {
  
 
   const inputChangeHandler = event => {
-    const { value } = event.target;
+    // const { value } = event.target;
    
   };
 
