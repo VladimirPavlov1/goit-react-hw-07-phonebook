@@ -1,18 +1,23 @@
 
-import {  WrapperContact } from './Contact.styled';
+import { useDispatch } from 'react-redux';
+import { deleteContacts } from 'redux/operations';
+import {  WrapperContact,Title,BtnDelete } from './Contact.styled';
 
 
-export const Contact = ({ name, id, phone }) => {
-  
+export const Contact = ({ name, id, number }) => {
+  const dispatch = useDispatch();
 
+  const handleDelete  = ()=>{
+    dispatch(deleteContacts(id))
+  }
   return (
     <WrapperContact>
-      {/* <Title>
+      <Title>
         {name} : {number}
       </Title>
-      <BtnDelete type="button" onClick={() => dispatch(deleteContacts({ id }))}>
+      <BtnDelete type="button" onClick = {handleDelete}>
         delete
-      </BtnDelete> */}
+      </BtnDelete >
     </WrapperContact>
   );
 };

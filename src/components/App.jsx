@@ -6,12 +6,12 @@ import { Filter } from './Filter/Filter';
 import { useSelector,useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import { Contacts, Container } from './App.styled';
-import { getContacts } from 'redux/selectors';
+import { selectContacts } from 'redux/selectors';
 import { fetchContacts } from 'redux/operations';
 // import { getError,getIsLoading } from 'redux/selectors';
 
 export const App = () => {
-  const contacts = useSelector(getContacts);
+  const contacts = useSelector(selectContacts);
   console.log(contacts)
 
   const dispatch = useDispatch();
