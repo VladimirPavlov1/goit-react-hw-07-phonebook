@@ -13,18 +13,21 @@ const contactsSlice = createSlice({
     return builder
 
       .addCase(fetchContacts.fulfilled, (state, action) => {
-        
+
         state.items = action.payload;
       })
       .addCase(fetchContacts.rejected, (state, action) => {
+
         state.error = action.payload;
       })
 
+
       .addCase(addContacts.fulfilled, (state, action) => {
         state.items.push(action.payload);
-        
+
       })
       .addCase(addContacts.rejected, (state, action) => {
+
         state.error = action.payload;
       })
 
@@ -33,41 +36,44 @@ const contactsSlice = createSlice({
           ({ id }) => id === action.payload.id
         );
         state.items.splice(index, 1);
-        
+
       })
       .addCase(deleteContacts.rejected, (state, action) => {
+
         state.error = action.payload;
       })
+
       .addMatcher(
         isAnyOf(
           (fetchContacts.fulfilled,
-          fetchContacts.rejected,
-          addContacts.fulfilled,
-          addContacts.rejected,
-          deleteContacts.fulfilled,
-          deleteContacts.rejected),
-          state => {
+            fetchContacts.rejected,
+            addContacts.fulfilled,
+            addContacts.rejected,
+            deleteContacts.fulfilled,
+            deleteContacts.rejected),
+            state => {
             state.isLoading = false;
           }
         )
       )
       .addMatcher(
         isAnyOf(
-          (fetchContacts.pending, 
-          addContacts.pending,
-          deleteContacts.pending),
-          state => {
+          (fetchContacts.pending,
+            addContacts.pending,
+            deleteContacts.pending),
+            state => {
             state.isLoading = true;
           }
         )
       )
       .addMatcher(
         isAnyOf((fetchContacts.fulfilled,
-                 addContacts.fulfilled,
-                 deleteContacts.fulfilled),
-                state => {state.error = null}
+          addContacts.fulfilled,
+          deleteContacts.fulfilled),
+          state => { state.error = null }
         )
       )
+     
   },
 });
 
