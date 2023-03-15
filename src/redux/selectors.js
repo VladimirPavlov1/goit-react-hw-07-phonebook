@@ -9,13 +9,15 @@ export const selectError = state => state.contacts.error;
 export const selectFilter = state => state.filter;
 
 export const visibleContacts = createSelector(
-    [selectContacts, selectFilter],
-    (contacts, filter) => {
+  [selectContacts, selectFilter],
+  (contacts, filter) => {
+    if (filter === '') { return contacts } else {
       const normalizedFilter = filter.toLowerCase();
       return contacts.filter(contact =>
         contact.name.toLowerCase().includes(normalizedFilter)
-      );
-    }
-  );
+      )
+    };
+  }
+);
 
 

@@ -9,48 +9,65 @@ const contactsSlice = createSlice({
     error: null,
   },
 
-  extraReducers:(builder) => {
-     return builder.addCase(fetchContacts.pending, (state) => {state.isLoading = true})
-      .addCase(fetchContacts.fulfilled, (state, action) => {
-        state.error = null;
-        state.items = action.payload
-      })
-      .addCase(fetchContacts.rejected, ((state, action) => {
-        
-        state.error = action.payload;
-      }))
-      .addCase(addContacts.pending,(state)=>{
-        state.isLoading = true
-      })
-      .addCase(addContacts.fulfilled,(state,action)=>{
-        state.isLoading = false;
-        state.items.push(action.payload);
-        state.error = null;
-      })
-      .addCase(addContacts.rejected,(state,action)=>{
-        state.isLoading = false;
-        state.error=action.payload;
+  extraReducers: builder => {
+    return builder
 
+      .addCase(fetchContacts.fulfilled, (state, action) => {
+        
+        state.items = action.payload;
       })
-      .addCase(deleteContacts.pending,(state)=>{
-        state.isLoading = true
+      .addCase(fetchContacts.rejected, (state, action) => {
+        state.error = action.payload;
       })
-      .addCase(deleteContacts.fulfilled,(state,action)=>{
-        state.isLoading=false;
-        const index = state.items.findIndex(({id})=>id===action.payload.id);
-        state.items.splice(index,1)
-        state.error=null;
+
+      .addCase(addContacts.fulfilled, (state, action) => {
+        state.items.push(action.payload);
+        
       })
-      .addCase(deleteContacts.rejected,(state,action)=>{
-        state.isLoading = false;
+      .addCase(addContacts.rejected, (state, action) => {
+        state.error = action.payload;
+      })
+
+      .addCase(deleteContacts.fulfilled, (state, action) => {
+        const index = state.items.findIndex(
+          ({ id }) => id === action.payload.id
+        );
+        state.items.splice(index, 1);
+        
+      })
+      .addCase(deleteContacts.rejected, (state, action) => {
         state.error = action.payload;
       })
       .addMatcher(
         isAnyOf(
-          (fetchContacts.fulfilled,fetchContacts.rejected),(state) => 
-            {state.isLoading = false}
+          (fetchContacts.fulfilled,
+          fetchContacts.rejected,
+          addContacts.fulfilled,
+          addContacts.rejected,
+          deleteContacts.fulfilled,
+          deleteContacts.rejected),
+          state => {
+            state.isLoading = false;
+          }
         )
-      );
+      )
+      .addMatcher(
+        isAnyOf(
+          (fetchContacts.pending, 
+          addContacts.pending,
+          deleteContacts.pending),
+          state => {
+            state.isLoading = true;
+          }
+        )
+      )
+      .addMatcher(
+        isAnyOf((fetchContacts.fulfilled,
+                 addContacts.fulfilled,
+                 deleteContacts.fulfilled),
+                state => {state.error = null}
+        )
+      )
   },
 });
 

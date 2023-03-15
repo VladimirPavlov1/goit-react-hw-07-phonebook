@@ -11,9 +11,6 @@ import * as Yup from 'yup';
 import { useDispatch } from 'react-redux';
 import { addContacts } from 'redux/operations';
 
-
-
-
 const FilterSchema = Yup.object().shape({
   name: Yup.string()
     .min(3, 'Please, enter your full name')
@@ -44,17 +41,11 @@ const initialValues = {
 };
 
 export const FormContacts = () => {
+  const dispatch = useDispatch();
 
- const dispatch = useDispatch();
-
-  const handleSubmit = ({name,number},{resetForm}) => {
-  dispatch(addContacts({name,number}));
-   resetForm()
-  
-
-   
-
-    ;
+  const handleSubmit = ({ name, number }, { resetForm }) => {
+    dispatch(addContacts({ name, number }));
+    resetForm();
   };
 
   return (
@@ -83,4 +74,3 @@ export const FormContacts = () => {
     </Formik>
   );
 };
-
