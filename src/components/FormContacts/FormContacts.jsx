@@ -8,8 +8,9 @@ import {
 
 import { Formik, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
-import { useDispatch } from 'react-redux';
+import { useDispatch,useSelector } from 'react-redux';
 import { addContacts } from 'redux/operations';
+import { selectContacts } from 'redux/selectors';
 
 const FilterSchema = Yup.object().shape({
   name: Yup.string()
@@ -19,7 +20,7 @@ const FilterSchema = Yup.object().shape({
   number: Yup.string()
     .required('Required')
     .min(6, 'Min 6 symbol')
-    .max(12, 'Max symbol 12'),
+    .max(22, 'Max symbol 22'),
 });
 
 const FormError = ({ name }) => {
@@ -42,8 +43,14 @@ const initialValues = {
 
 export const FormContacts = () => {
   const dispatch = useDispatch();
+  const contacts = useSelector(selectContacts)
 
   const handleSubmit = ({ name, number }, { resetForm }) => {
+    
+    if(contacts.some(contact=>contact.name.toLowerCase||contact.number===number)){
+      return alert("You have this contact")
+    }
+    
     dispatch(addContacts({ name, number }));
     resetForm();
   };
